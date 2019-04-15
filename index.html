@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 90vh;
+        }
+
+        .task button {
+            color: rgb(85, 85, 85);
+            background-color: transparent;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        form {
+            width: 300px;
+            padding: 5px;
+        }
+
+        form input {
+            border-radius: 5px;
+        }
+
+        button {
+            border-radius: 5px;
+        }
+
+        [data-key="dodaj"] {
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <input placeholder="Zadanie" data-key="dodaj" type="text">
+        <button data-btn="dodaj">Dodaj zadanie</button>
+        <input placeholder="Szukana fraza" data-key="szukaj" type="text">
+        <button data-btn="szukaj">Szukaj</button>
+    </form>
+    <h1>Liczba elementów to: <span>0</span></h1>
+    <ul></ul>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
