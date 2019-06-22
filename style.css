@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-image: url("bck.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+}
+
+.container {
+    padding: 20px;
+}
+
+form {
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+form input {
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    padding: 5px 10px;
+}
+
+button#add {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+ul {
+    margin-left: 20px;
+}
+
+.task button {
+    margin-left: 5px;
+    color: rgba(255, 255, 255, 0.678);
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color .2s;
+    font-size: 16px;
+}
+
+.task button:hover {
+    color: red;
+}
+
+.task button:focus {
+    outline: none;
+    transform: scale(1.4)
+}
+
+[data-key="dodaj"] {
+    margin-bottom: 5px;
+}
+
+h1 {
+    padding: 5px;
+}
+
+li.task {
+    list-style-type: square;
+    width: 80%;
+}
+
+.task p {
+    display: inline;
+    font-size: 20px;
+    line-height: 50px;
+}

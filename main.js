@@ -7,56 +7,51 @@ const inputSearch = document.querySelector('[data-key="szukaj"]');
 const buttonAdd = document.querySelector('[data-btn="dodaj"]');
 const buttonSearch = document.querySelector('[data-btn="szukaj"]');
 const liElements = document.getElementsByClassName('task');
-const toDoList = [];
 
-
-const searchTask = () => {
-    const searchText = inputSearch.value.toLowerCase();
-    let tasks = [...liElements];
-    tasks = tasks.filter(li => li.textContent.toLowerCase().includes(searchText));
-    console.log(tasks);
-    ul.textContent = "";
-    tasks.forEach(li => ul.appendChild(li));
-    taskNumber.textContent = liElements.length;
-    if (inputSearch.value === "") {
-        ul.textContent = "";
-        toDoList.forEach((toDoElement, key) => {
-            toDoElement.dataset.key = key;
-            ul.appendChild(toDoElement);
-        })
-    }
-}
-
-
-const addTask = (e) => {
-    e.preventDefault();
+const addTask = () => {
     const task = document.createElement('li');
-    if (inputAdd.value == "") return;
     task.classList.add('task');
-    task.innerHTML = inputAdd.value + "<button> X</button>";
-    toDoList.push(task);
+    task.innerHTML = `<p>Zadanie o treści: <strong>${inputAdd.value}</strong></p>  <button>X</button> `;
     inputAdd.value = "";
-    toDoList.forEach((toDoElement, key) => {
-        toDoElement.dataset.key = key;
-    })
-    console.log(toDoList);
+
+    const todoDate = document.createElement('span');
+    todoDate.classList.add('dateInfo');
+    const date = new Date();
+    const dateText = `${date.getDate()}-${(date.getMonth() + 1)}-${date.getFullYear()} o godzinie: ${date.getHours()}:${date.getMinutes()}`
+    todoDate.innerText = `Dodano: ${dateText}`;
+
+    task.appendChild(todoDate)
     ul.appendChild(task);
-    taskNumber.textContent = liElements.length;
-    inputSearch.addEventListener('input', searchTask);
+
     task.querySelector('button').addEventListener('click', removeTask);
 }
 
-const removeTask = (e) => {
-    e.target.parentNode.remove();
-    const index = e.target.parentNode.dataset.key;
-    toDoList.splice(index, 1);
-    ul.textContent = "";
-    toDoList.forEach((toDoElement, key) => {
-        toDoElement.dataset.key = key;
-        ul.appendChild(toDoElement);
+inputSearch.addEventListener('input', function () {
+    const val = this.value
+    const elems = [...liElements]
+
+    elems.forEach(el => {
+        const text = el.querySelector('.task p strong').innerText;
+        if (text.indexOf(val) !== -1) {
+            el.style.setProperty('display', '')
+        } else {
+            el.style.setProperty('display', 'none')
+        }
     })
-    console.log(toDoList);
-    taskNumber.textContent = liElements.length;
+    taskNumber.textContent = [...liElements].filter(el => el.style.display != 'none').length;
+})
+
+const newTask = (e) => {
+    e.preventDefault();
+    if (inputAdd.value !== "") {
+        addTask()
+    }
+    taskNumber.textContent = [...liElements].filter(el => el.style.display != 'none').length;
 }
 
-form.addEventListener('submit', addTask);
+const removeTask = (e) => {
+    e.target.closest('.task').remove();
+    taskNumber.textContent = [...liElements].filter(el => el.style.display != 'none').length;
+}
+
+form.addEventListener('submit', newTask);
