@@ -1,7 +1,7 @@
 //Pobieranie elementów 
 const form = document.querySelector('form');
 const taskNumber = document.querySelector('h1 span');
-const ul = document.querySelector('ul');
+const listBox = document.querySelector('div');
 const inputAdd = document.querySelector('[data-key="dodaj"]');
 const inputSearch = document.querySelector('[data-key="szukaj"]');
 const buttonAdd = document.querySelector('[data-btn="dodaj"]');
@@ -9,21 +9,34 @@ const buttonSearch = document.querySelector('[data-btn="szukaj"]');
 const liElements = document.getElementsByClassName('task');
 
 const addTask = () => {
-    const task = document.createElement('li');
+    const task = document.createElement('div');
     task.classList.add('task');
-    task.innerHTML = `<p>Zadanie o treści: <strong>${inputAdd.value}</strong></p>  <button>X</button> `;
-    inputAdd.value = "";
+
 
     const todoDate = document.createElement('span');
     todoDate.classList.add('dateInfo');
-    const date = new Date();
-    const dateText = `${date.getDate()}-${(date.getMonth() + 1)}-${date.getFullYear()} o godzinie: ${date.getHours()}:${date.getMinutes()}`
-    todoDate.innerText = `Dodano: ${dateText}`;
+    const time = new Date();
+    const day = time.getDate() < 10 ? "0" + time.getDate() : time.getDate();
+    const month = time.getMonth() < 10 ? "0" + time.getMonth() * 1 + 1 : time.getMonth() * 1 + 1;
+    const year = time.getFullYear()
+    const hours = time.getHours();
+    const minutes = time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes();
+    const dateText = `${day}-${month}-${year} o godzinie: ${hours}:${minutes}`
 
+    const btnDel = document.createElement('button');
+    btnDel.classList.add('btnDel');
+
+
+    task.innerHTML = `<p>Zadanie o treści: <strong>${inputAdd.value}</strong></p> `;
+    btnDel.innerHTML = 'X';
+    todoDate.innerText = ` - Dodano: ${dateText}`;
+
+
+    listBox.appendChild(task);
     task.appendChild(todoDate)
-    ul.appendChild(task);
+    task.appendChild(btnDel)
 
-    task.querySelector('button').addEventListener('click', removeTask);
+    task.querySelector('.btnDel').addEventListener('click', removeTask);
 }
 
 inputSearch.addEventListener('input', function () {
@@ -45,6 +58,7 @@ const newTask = (e) => {
     e.preventDefault();
     if (inputAdd.value !== "") {
         addTask()
+        inputAdd.value = "";
     }
     taskNumber.textContent = [...liElements].filter(el => el.style.display != 'none').length;
 }

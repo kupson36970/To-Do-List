@@ -65,12 +65,8 @@ ul {
 }
 
 h1 {
+    margin-bottom: 20px;
     padding: 5px;
-}
-
-li.task {
-    list-style-type: square;
-    width: 80%;
 }
 
 .task p {
